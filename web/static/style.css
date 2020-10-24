@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Code+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+p {
+    font-family: 'Lato', sans-serif;
+}
+
+h1,h2,h3,h4,h5  {
+    font-family: 'Source Code Pro', monospace;
+}
+
+#navbar {
+    background-image: url("img-noise-black-361x370.png");
+}
+
+hr {
+    border: none;
+    /*border-top: 1px solid #eee;*/
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(17,17,17,1) 50%, rgba(255,255,255,1) 100%);
+}
+
+
+.color-invert {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+
+#app-end{
+    display: none;
+}
+
+.brand-logo {
+    width: 64px!important;
+    margin: auto;
+}
+
+.w3-btn:hover {
+    color: grey;!important;
+    background-color: transparent;!important;
+    box-shadow: none;
+}
+.w3-btn:focus {
+    outline: none;
+}
+
+
+#content {
+    padding: 5% 20%;
+}
+
+.mycode {
+    width: auto;
+    border:1px dashed #afafaf;
+    background-color: #fefefe;
+    padding: 32px 32px;
+    word-break: break-all;!important;
+}
