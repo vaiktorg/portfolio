@@ -1,4 +1,4 @@
-//+build windows
+//+build windows linux
 
 package main
 
@@ -10,13 +10,20 @@ import (
 	"github.com/maxence-charriere/go-app/pkg/app"
 )
 
+var (
+	Title     string
+	Desc      string
+	Name      string
+	ShortName string
+)
+
 func main() {
 	h := &app.Handler{
-		Title:        "HeptaCode Dashboard",
+		Title:        Title,
 		Author:       "Vaiktorg",
-		Name:         "Heptacode Dashboard",
-		ShortName:    "HptCdDshbrd",
-		Description:  "Portofolio",
+		Name:         Name,
+		ShortName:    ShortName,
+		Description:  Desc,
 		LoadingLabel: "Reading Grimoire...",
 
 		Styles: []string{
@@ -37,7 +44,7 @@ func main() {
 		},
 	}
 
-	//repo := app.GitHubPages("vaiktorg")
+	repo := app.GitHubPages("vaiktorg")
 	err := app.GenerateStaticWebsite("vaiktorg.github.io", h)
 	if err != nil {
 		fmt.Println(err)

@@ -9,7 +9,7 @@ import (
 	"github.com/maxence-charriere/go-app/pkg/app"
 )
 
-type Canvas struct {
+type Drawing struct {
 	app.Compo
 	canvasCtx app.Value
 	w, h      int
@@ -17,7 +17,7 @@ type Canvas struct {
 	once      sync.Once
 }
 
-func (d *Canvas) Render() app.UI {
+func (d *Drawing) Render() app.UI {
 	d.once.Do(func() {
 		d.margin = "10%"
 		d.w, d.h = app.Window().Size()
@@ -26,7 +26,7 @@ func (d *Canvas) Render() app.UI {
 		Width(d.w/2).Height(d.h/2).Style("margin-top", d.margin)
 }
 
-func (d *Canvas) OnMount(ctx app.Context) {
+func (d *Drawing) OnMount(ctx app.Context) {
 	d.canvasCtx = ctx.JSSrc.Call("getContext", "2d")
 
 	maxXSquares := 10
@@ -44,83 +44,83 @@ func (d *Canvas) OnMount(ctx app.Context) {
 	}
 }
 
-// Canvas 2D API
+// Drawing 2D API
 // =====================================================================================================================
-func (d *Canvas) SetFillStyle(arg string) {
+func (d *Drawing) SetFillStyle(arg string) {
 	d.canvasCtx.Set("fillStyle", arg)
 }
-func (d *Canvas) SetStrokeStyle(arg int) {
+func (d *Drawing) SetStrokeStyle(arg int) {
 	d.canvasCtx.Set("strokeStyle", arg)
 }
-func (d *Canvas) SetGlobalAlpha(arg int) {
+func (d *Drawing) SetGlobalAlpha(arg int) {
 	d.canvasCtx.Set("globalAlpha", arg)
 }
 
-func (d *Canvas) Rect(x, y, width, height int) {
+func (d *Drawing) Rect(x, y, width, height int) {
 	d.canvasCtx.Call("rect", x, y, width, height)
 }
 
-func (d *Canvas) FillRect(x, y, width, height int) {
+func (d *Drawing) FillRect(x, y, width, height int) {
 	d.canvasCtx.Call("fillRect", x, y, width, height)
 }
 
-func (d *Canvas) StrokeRect(x, y, width, height int) {
+func (d *Drawing) StrokeRect(x, y, width, height int) {
 	d.canvasCtx.Call("strokeRect", x, y, width, height)
 }
 
-func (d *Canvas) ClearRect(x, y, width, height int) {
+func (d *Drawing) ClearRect(x, y, width, height int) {
 	d.canvasCtx.Call("clearRect", x, y, width, height)
 }
 
-func (d *Canvas) BeginPath() {
+func (d *Drawing) BeginPath() {
 	d.canvasCtx.Call("beginPath")
 }
 
-func (d *Canvas) ClosePath() {
+func (d *Drawing) ClosePath() {
 	d.canvasCtx.Call("beginPath")
 }
 
-func (d *Canvas) Fill() {
+func (d *Drawing) Fill() {
 	d.canvasCtx.Call("fill")
 }
 
-func (d *Canvas) Stroke() {
+func (d *Drawing) Stroke() {
 	d.canvasCtx.Call("stroke")
 }
 
-func (d *Canvas) MoveTo(x, y int) {
+func (d *Drawing) MoveTo(x, y int) {
 	d.canvasCtx.Call("moveTo", x, y)
 }
 
-func (d *Canvas) LineTo(x, y int) {
+func (d *Drawing) LineTo(x, y int) {
 	d.canvasCtx.Call("lineTo", x, y)
 }
 
-func (d *Canvas) Arc(x, y, r, startAngle, endAngle int) {
+func (d *Drawing) Arc(x, y, r, startAngle, endAngle int) {
 	d.canvasCtx.Call("arc", x, y, r, startAngle, endAngle)
 }
 
-func (d *Canvas) ArcTo(x0, y0, x1, y1, radius int) {
+func (d *Drawing) ArcTo(x0, y0, x1, y1, radius int) {
 	d.canvasCtx.Call("arc", x0, y0, x1, y1, radius)
 }
 
 // quadraticCurveTo(cp1x, cp1y, x, y)
-func (d *Canvas) QuadraicCurveTo() {
+func (d *Drawing) QuadraicCurveTo() {
 
 }
 
 //bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
-func (d *Canvas) BezierCurveTo() {
+func (d *Drawing) BezierCurveTo() {
 
 }
 
 // =====================================================================================================================
 
-func (d *Canvas) rgbToHex(r, g, b int) string {
+func (d *Drawing) rgbToHex(r, g, b int) string {
 	return fmt.Sprintf("#%.2x%.2x%.2x", r, g, b)
 }
 
-func (d *Canvas) hexToRGB(hexColor string) (int, int, int, error) {
+func (d *Drawing) hexToRGB(hexColor string) (int, int, int, error) {
 	hex := hexColor[1:]
 	r, err := strconv.Atoi(hex[:2])
 	g, err := strconv.Atoi(hex[2:4])

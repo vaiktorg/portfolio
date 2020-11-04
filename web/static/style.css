@@ -16,10 +16,20 @@ hr {
     border: none;
     /*border-top: 1px solid #eee;*/
     height: 1px;
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(17,17,17,1) 50%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(17,17,17,1) 50%, transparent 100%);
 }
-
-
+.hrwhite {
+    border: none;
+    margin: 8px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #FFFFFF 50%, transparent 100%);
+}
+.hr-right-white {
+    border: none;
+    margin: 8px;
+    height: 1px;
+    background: linear-gradient(90deg, #FFFFFF 0%, transparent 50%);
+}
 .color-invert {
     -webkit-filter: invert(1);
     filter: invert(1);
@@ -54,4 +64,28 @@ hr {
     background-color: #fefefe;
     padding: 32px 32px;
     word-break: break-all;!important;
+}
+
+.fade-out {
+    animation: fadeout ease-in-out 1s;
+}
+
+@keyframes fadeout {
+    0% {opacity: 1}
+    100%{opacity: 0;display: none}
+}
+
+.fixedbottom {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+#notificationTray {
+    max-height: 25%;
+    overflow: scroll;
+}
+
+.input[type="file"]{
+
 }
