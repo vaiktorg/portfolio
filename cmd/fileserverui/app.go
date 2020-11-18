@@ -2,16 +2,14 @@ package main
 
 import (
 	"github.com/maxence-charriere/go-app/pkg/app"
-	"github.com/vaiktorg/portfolio/src/pages"
-	"github.com/vaiktorg/portfolio/src/pages/fileserver"
+	"github.com/vaiktorg/portfolio/src/ui/pages"
+	"github.com/vaiktorg/portfolio/src/ui/pages/fileserver"
 )
-
-// TODO: Make everything mobile/responsive.
 
 func main() {
 
 	// FileServerUI
-	fs := &fileserver.Index{}
+	fs := &fileserver.FileServerPage{}
 
 	// MiscPages
 	e := &pages.ErrorPage{}

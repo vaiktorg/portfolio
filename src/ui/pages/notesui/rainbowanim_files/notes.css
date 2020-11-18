@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Source+Code+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+:root{
+    --TopBarMargin: 64px;
+    --MainColor: black;
+    --SecondaryColor: #202020;
+    --SubHeaderColor: darkgray;
+    --TextColor: ghostwhite;
+}
+
+html{width: 100%;margin-top: var(--TopBarMargin)}
+body{width: 100%;}
+
+p {
+    font-family: 'Lato', sans-serif;
+    color: var(--MainColor);
+}
+
+h1,h2,h3{
+    font-family: 'Source Code Pro', monospace;
+    color: var(--SecondaryColor);
+}
+h4,h5,h6 {
+    font-family: 'Source Code Pro', monospace;
+    color: var(--SubHeaderColor);
+}
+
+
+.w3-black {
+    background-color: var(--MainColor);
+    color: var(--TextColor);
+}
+
+.topbar {
+    position: fixed;
+    top: 0;
+    max-height: var(--TopBarMargin);
+    width: 100%;
+}
+
+hr {
+    background-image: url("https://thumbs.gfycat.com/ZanyFrankGar-size_restricted.gif");
+    height: 4px;
+    border: none;
+    margin: 0;
+}
+
+.debug {
+    border: red;
+}
+
+.editor{
+    resize: none;
+    height: 100%;
+    min-height: 200px;
+}
