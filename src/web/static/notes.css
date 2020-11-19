@@ -4,7 +4,7 @@
     --TopBarMargin: 64px;
     --MainColor: black;
     --SecondaryColor: #202020;
-    --Highlight: re;
+    --Highlight: #0066ff;
     --SubHeaderColor: darkgray;
     --TextColor: ghostwhite;
     --Gif: url("https://thumbs.gfycat.com/ZanyFrankGar-size_restricted.gif");
@@ -46,8 +46,9 @@ h4,h5,h6 {
     border-right: 1px solid var(--MainColor)!important;
 }
 .w3-button:hover{
+    background-color: var(--MainColor)!important;
     color: var(--TextColor)!important;
-    background: var(--Gif)!important;
+    text-underline: 1px solid var(--TextColor)!important;
 }
 
 .topbar {

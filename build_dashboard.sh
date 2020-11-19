@@ -1,18 +1,39 @@
 #!/usr/bin/env bash
 
-Title='Dashboard'
-Desc='Personal porfolio and random tools.'
-CSSPath='web/static/style.css'
-DSTPath='dst/notesui/"
-
-GOOS="linux" GOARCH="amd64" go build -o bin/dashboard -ldflags="-X 'main.Title=$Title' -X 'main.Desc=$Desc' -X 'main.CSSPath=$CSSPath' -X 'main.DSTPath=$DSTPath'" server.go
-#GOOS="linux" GOARCH="arm64" go build -o bin/fileserverui -ldflags "-X 'main.Title=$Title, main.Desc=$Desc'" server.go
 # =============================
+#Header Info
+AppName="dashboard"
+Title="DashboardUI"
+Desc='A small and simple dashboard for home.'
 
-GOOS="js" GOARCH="wasm" go build -o web/app.wasm cmd/dashboard/app.go
+# Paths
+WEB_DIR='src/web'
+CSS_PATH="web/static/style.css"
+DST_DIR="../../dst/vaiktorg.github.io/$Title"
+
 # =============================
+#GoFiles
+GoWASMFilePath='cmd/dashboard/app.go'
+GoServerFilePath='src/server/server.go'
+GoStaticFilePath='src/server/staticwebsite.go'
 
-sudo cp -r web/ vaiktorg.github.io/
+# Export Paths
+BinFilePath="bin/$Title/$AppName"
+WASMFilePath="bin/$Title/web/app.wasm"
+
 # =============================
+#Build this server to host.
+GOOS="linux" GOARCH="amd64" \
+  go build -o $BinFilePath \
+  -ldflags="-X 'main.Title=$Title' -X 'main.Desc=$Desc' -X 'main.CSSPath=$CSS_PATH' -X 'main.DSTPath=$DST_DIR' -X 'main.WEBPath=web'" \
+  $GoServerFilePath
 
-./bin/dashboard # 7z a dist.zip src/web/ bin/
+# =============================
+#Build WASMApp
+GOOS="js" GOARCH="wasm" go build -o "$WASMFilePath" "$GoWASMFilePath"
+
+# =============================
+cp -r "$WEB_DIR" "bin/$Title/"
+
+cd bin/$Title
+./$AppName

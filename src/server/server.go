@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/vaiktorg/grimoire/errs"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/maxence-charriere/go-app/pkg/app"
@@ -19,29 +21,24 @@ var (
 	ShortName string
 
 	CSSPath string
-	DSTPath string
+	WEBPath string
 )
 
 func main() {
-
+	fmt.Println(os.Getwd())
 	mux := http.NewServeMux()
-	h := &app.Handler{
+	uiHandler := &app.Handler{
 		Title:        Title,
 		Author:       "Vaiktorg",
 		Name:         Name,
 		ShortName:    ShortName,
 		Description:  Desc,
 		LoadingLabel: "Reading Grimoire...",
-
 		Styles: []string{
 			"https://www.w3schools.com/w3css/4/w3pro.css",
 			"http://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css",
 			CSSPath,
 		},
-		Scripts: []string{
-			//"web/static/js/uikit.js",
-		},
-		Resources: app.LocalDir("src/web"),
 		Icon: struct {
 			Default    string
 			Large      string
@@ -53,15 +50,8 @@ func main() {
 		},
 	}
 
-	//repo := app.GitHubPages("vaiktorg")
-	err := app.GenerateStaticWebsite(DSTPath, h)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-
 	// Register the handler for ui
-	mux.Handle("/", h)
+	mux.Handle("/", uiHandler)
 
 	// Server functionality
 	serv := gin.Default()
@@ -82,8 +72,6 @@ func main() {
 	fmt.Println(Title + ": " + Desc)
 	fmt.Printf("Listening on: %v\n", addr)
 
-	err = http.ListenAndServe(addr, mux)
-	if err != nil {
-		fmt.Println(err)
-	}
+	err := http.ListenAndServe(addr, mux)
+	errs.CheckError(err)
 }

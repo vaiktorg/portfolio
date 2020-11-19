@@ -1,11 +1,8 @@
 package fileserver
 
 import (
-	"bytes"
 	"fmt"
 	"time"
-
-	"github.com/vaiktorg/portfolio/src/ui/services"
 
 	. "github.com/maxence-charriere/go-app/pkg/app"
 )
@@ -106,16 +103,13 @@ func (d *FileServerPage) OnChange(ctx Context, _ Event) {
 		formData.append("photo", photo);
 		fetch('/upload/image', {method: "POST", body: formData});*/
 
-	files := Window().GetElementByID("file").Get("files")
-	fmt.Printf("%T\n", files)
-	var buff []byte
-	CopyBytesToGo(buff, files)
+	//files := Window().GetElementByID("file").Get("files")
+	//fmt.Printf("%T\n", files)
+	//var buff []byte
+	//CopyBytesToGo(buff, files)
 
-	rdr := bytes.NewReader(buff)
+	//rdr := bytes.NewReader(buff)
 
-	services.HTTPReqs{}.POST("/s/vaiktorg/upload", "image/*", rdr, func(data []byte) {
-		fmt.Println(string(data))
-	})
 }
 
 func (d *FileServerPage) OpenFileDialog(_ Context, e Event) {
