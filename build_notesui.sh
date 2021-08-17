@@ -7,15 +7,15 @@ Title="NotesUI"
 Desc='A small and simple fileserver for home.'
 
 # Paths
-WEB_DIR='src/web'
+WEB_DIR='models/web'
 CSS_PATH="web/static/style.css"
 DST_DIR="../../dst/vaiktorg.github.io/$Title"
 
 # =============================
 #GoFiles
-GoWASMFilePath='cmd/notes/app.go'
-GoServerFilePath='src/server/server.go'
-GoStaticFilePath='src/server/staticwebsite.go'
+GoWASMFilePath='app/notes/app.go'
+GoServerFilePath='models/server/server.go'
+GoStaticFilePath='models/server/staticwebsite.go'
 
 # Export Paths
 BinFilePath="bin/$Title/$AppName"
@@ -35,5 +35,6 @@ GOOS="js" GOARCH="wasm" go build -o "$WASMFilePath" "$GoWASMFilePath"
 # =============================
 cp -r "$WEB_DIR" "bin/$Title/"
 
+# shellcheck disable=SC2164
 cd bin/$Title
 ./$AppName

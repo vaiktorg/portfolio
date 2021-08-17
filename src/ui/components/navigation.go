@@ -42,7 +42,7 @@ func (n *NavBar) Render() app.UI {
 	).Class("w3-animate-opacity w3-black").
 		Style("padding-left", "20%").
 		Style("padding-right", "20%").
-		ID("navbar")
+		ID("models")
 }
 
 func (n *NavBar) OnMount(app.Context) {

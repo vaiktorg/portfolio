@@ -4,18 +4,18 @@
 #Header Info
 AppName="dashboard"
 Title="DashboardUI"
-Desc='A small and simple dashboard for home.'
+Desc='A small and web views for home.'
 
 # Paths
-WEB_DIR='src/web'
+WEB_DIR='models/web'
 CSS_PATH="web/static/style.css"
 DST_DIR="../../dst/vaiktorg.github.io/$Title"
 
 # =============================
 #GoFiles
-GoWASMFilePath='cmd/dashboard/app.go'
-GoServerFilePath='src/server/server.go'
-GoStaticFilePath='src/server/staticwebsite.go'
+GoWASMFilePath='app/views/app.go'
+GoServerFilePath='models/server/server.go'
+GoStaticFilePath='models/server/staticwebsite.go'
 
 # Export Paths
 BinFilePath="bin/$Title/$AppName"

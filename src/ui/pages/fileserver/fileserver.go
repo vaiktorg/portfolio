@@ -47,7 +47,7 @@ func (d *FileServerPage) Render() UI {
 			OnChange(d.OnChange),
 
 		Div().Class("w3-container w3-bar").Body(
-			Button().Class(" w3-button").Body(Small().Text("Home")),
+			Button().Class(" w3-button").Body(Small().Text("home")),
 			Button().Class(" w3-button").Body(Small().Text("NotPr0n")),
 			Button().Class(" w3-button").Body(Small().Text("seriously_dont")),
 		),

@@ -30,7 +30,7 @@ func (n *NotificationComponent) Render() UI {
 			)
 		}),
 	).Class("w3-row")
-	// TODO: make notification container have better UX.
+	// TODO: makefile notification container have better UX.
 
 }
 

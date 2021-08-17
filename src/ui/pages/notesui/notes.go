@@ -38,7 +38,7 @@ func (n *NotesPage) OnMount(Context) {
 
 func (n *NotesPage) Render() UI {
 	return Div().Body(
-		// TopBar
+		// NotifBar
 		Div().Class("w3-bar w3-black").ID("MenuBar").Body(
 			Button().Class("w3-button w3-bar-item "+n.ActiveBtn(n.DirectoryVisible)).Text("Directory").OnClick(n.ToggleDirectory),
 			Button().Class("w3-button w3-bar-item "+n.ActiveBtn(n.EditorVisible)).Text("Editor").OnClick(n.ToggleEditor),
@@ -53,7 +53,7 @@ func (n *NotesPage) Render() UI {
 			Div().Class("w3-row").ID("NotesEditor").Body(
 				Div().Class("w3-half w3-padding "+n.EditorVisible).Body(
 					Div().Class("w3-bar").Body(
-						Input().Class("w3-mobile w3-input w3-border").Placeholder("Note Title..."),
+						Input().Class("w3-mobile w3-posts w3-border").Placeholder("Note Title..."),
 						Button().Class("w3-bar-item w3-button").Body(I().Class("mdi mdi-format-bold")),
 						Button().Class("w3-bar-item w3-button").Body(I().Class("mdi mdi-format-italic")),
 						Button().Class("w3-bar-item w3-button").Body(I().Class("mdi mdi-link")),

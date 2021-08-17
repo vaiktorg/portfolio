@@ -8,11 +8,11 @@ import (
 )
 
 type HTTPReqs struct {
-	client http.Client
+	http.Client
 }
 
 func (h *HTTPReqs) GET(addr string, handler func([]byte, error)) {
-	resp, err := h.client.Get(addr)
+	resp, err := h.Get(addr)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
@@ -22,7 +22,7 @@ func (h *HTTPReqs) GET(addr string, handler func([]byte, error)) {
 }
 
 func (h *HTTPReqs) POST(addr string, contentType string, body io.Reader, handler func(data []byte, err error)) {
-	resp, err := h.client.Post(addr, contentType, body)
+	resp, err := h.Post(addr, contentType, body)
 	if err != nil {
 		fmt.Println("shit wont work", err)
 		return
@@ -32,8 +32,8 @@ func (h *HTTPReqs) POST(addr string, contentType string, body io.Reader, handler
 }
 
 func (h *HTTPReqs) processHandler(resp *http.Response, handler func(data []byte, err error)) {
-	if resp.Header.Get("Content-Type") == "text/html" {
-		fmt.Println("html not allowed on httpReqs", nil)
+	if resp.Header.Get("Content-Type") == "text/views" {
+		fmt.Println("views not allowed on httpReqs", nil)
 		return
 	}
 	if resp.StatusCode != http.StatusOK {

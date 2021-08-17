@@ -2,29 +2,30 @@ package components
 
 import (
 	. "github.com/maxence-charriere/go-app/pkg/app"
-	"github.com/vaiktorg/grimoire/filesystem"
+	"github.com/vaiktorg/grimoire/documentstore"
 )
 
 // Directory
 type Tree struct {
 	Compo
-	tree *filesystem.Dir
-	dir  *Dir
+	//tree *documentstore.Dir
+	dir *Dir
 }
 
-func (t *Tree) OnMount(Context) {
-	t.tree = filesystem.NewDir("static")
-}
-
-func (t *Tree) Render() UI {
-	return Ul().Class("tree").Body(
-		&Dir{Name: t.tree.Metadata.Name},
-	)
-}
-
-func (t *Tree) GetStruct() *filesystem.Dir {
-	return t.tree
-}
+//
+//func (t *Tree) OnMount(Context) {
+//	t.tree = documentstore.NewDir("static")
+//}
+//
+//func (t *Tree) Render() UI {
+//	return Ul().Class("tree").Body(
+//		&Dir{Name: t.tree.Meta.Name},
+//	)
+//}
+//
+//func (t *Tree) GetStruct() *documentstore.Dir {
+//	return t.tree
+//}
 
 type File struct {
 	Compo
@@ -55,14 +56,14 @@ func (d *Dir) Render() UI {
 	)
 }
 
-func (d *Dir) AddFile(file ...filesystem.File) {
+func (d *Dir) AddFile(file ...documentstore.File) {
 	for _, f := range file {
-		d.files = append(d.files, &File{Name: f.Metadata.Name})
+		d.files = append(d.files, &File{Name: f.Meta.Name})
 	}
 }
 
-func (d *Dir) AddDir(dirs ...filesystem.Dir) {
+func (d *Dir) AddDir(dirs ...documentstore.Dir) {
 	for _, dir := range dirs {
-		d.dirs = append(d.dirs, &Dir{Name: dir.Metadata.Name})
+		d.dirs = append(d.dirs, &Dir{Name: dir.Meta.Name})
 	}
 }

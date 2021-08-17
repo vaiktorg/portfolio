@@ -10,7 +10,6 @@ import (
 type NotificationCenter struct {
 	notif   chan Notif  //recieves message and sends them to be notified.
 	handler func(Notif) //calls the functionality that handles the notification
-
 }
 
 var (

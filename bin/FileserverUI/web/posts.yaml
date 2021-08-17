@@ -1,0 +1,7 @@
+posts:
+  gwarana:
+    title: "Gwarana"
+    desc: "This is a tool for keeping your pc awake by simulating pressing keys"
+    img: "web/static/Gwarana.png"
+    content: "web/markdown/gwarana.md"
+  shuffler:

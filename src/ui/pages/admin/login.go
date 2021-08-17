@@ -22,13 +22,13 @@ func (l *LoginPage) Render() app.UI {
 		app.Hr(),
 		app.Label().Text("Username | Email").Class("w3-text-black w3-padding-top"),
 		app.Input().Type("text").Placeholder("Email or Password").
-			Class("w3-input w3-border").
+			Class("w3-posts w3-border").
 			OnChange(l.onUsernameChange),
 
 		app.Br(),
 		app.Label().Text("Password").Class("w3-text-black w3-padding-top"),
 		app.Input().Type("text").Placeholder("Password").
-			Class("w3-input w3-border").
+			Class("w3-posts w3-border").
 			OnChange(l.onPasswordChange),
 
 		app.If(len(l.msgs) > 0,
@@ -62,7 +62,7 @@ func (l *LoginPage) onSubmit(ctx app.Context, _ app.Event) {
 	l.msgs = append(l.msgs, "Welcome!")
 
 	time.AfterFunc(time.Second, func() {
-		app.Navigate("/dashboard")
+		app.Navigate("/views")
 	})
 
 	l.loggedIn = true

@@ -3,13 +3,13 @@ package services
 // import (
 // 	"bufio"
 // 	"fmt"
-// 	"html/template"
+// 	"views/template"
 // 	"os"
 // 	"strings"
 // 	"time"
 
 // 	"github.com/microcosm-cc/bluemonday"
-// 	"github.com/vaiktorg/vaiktorg-services/app/errs"
+// 	"github.com/vaiktorg/vaiktorg-serv/app/errs"
 
 // 	"github.com/gomarkdown/markdown"
 // 	"github.com/gomarkdown/markdown/parser"
@@ -17,7 +17,7 @@ package services
 
 // // FullPost contains all data a post will have
 // type FullPost struct {
-// 	Data    PostData
+// 	data    PostData
 // 	content template.HTML
 // }
 
@@ -50,7 +50,7 @@ package services
 // 		}
 // 		if thumb, ok := fm["thumb"]; ok {
 // 			if _, err := os.Stat(thumb); os.IsExist(err) {
-// 				errs.CheckError(err)
+// 				errs.checkError(err)
 // 				prev.ThumbnailPath = thumb
 // 			}
 // 		}
@@ -65,7 +65,7 @@ package services
 // 		sanitizedHTML := bluemonday.UGCPolicy().SanitizeBytes(unsanitizedHTML)
 
 // 		post.content = template.HTML(sanitizedHTML)
-// 		post.Data = prev
+// 		post.data = prev
 // 		return post, prev, nil
 // 	}
 // 	return FullPost{}, PostData{}, errs.NewError("Couldnt parse files, no data returned")
@@ -74,7 +74,7 @@ package services
 // // ParseMD returns a map of the key-value pairs found in the front matter.
 // func parseMD(path string, delimiter string) (string, map[string]string) {
 // 	var markdown string
-// 	frontMatterData := make(map[string]string)
+// 	frontMatterData := makefile(map[string]string)
 
 // 	file, err := os.Open(path)
 // 	if err != nil {

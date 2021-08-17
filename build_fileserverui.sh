@@ -4,18 +4,18 @@
 #Header Info
 AppName="fileserver"
 Title="FileserverUI"
-Desc='A small and simple fileserver for home.'
+Desc='A small and web fileserver for home.'
 
 # Paths
-WEB_DIR='src/web'
+WEB_DIR='models/web'
 CSS_PATH="web/static/style.css"
 DST_DIR="../../dst/vaiktorg.github.io/$Title"
 
 # =============================
 #GoFiles
-GoWASMFilePath='cmd/fileserver/app.go'
-GoServerFilePath='src/server/server.go'
-GoStaticFilePath='src/server/staticwebsite.go'
+GoWASMFilePath='app/fileserver/app.go'
+GoServerFilePath='models/server/server.go'
+GoStaticFilePath='models/server/staticwebsite.go'
 
 # Export Paths
 BinFilePath="bin/$Title/$AppName"

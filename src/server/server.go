@@ -21,7 +21,6 @@ var (
 	ShortName string
 
 	CSSPath string
-	WEBPath string
 )
 
 func main() {
@@ -50,7 +49,7 @@ func main() {
 		},
 	}
 
-	// Register the handler for ui
+	// Register the handlers for ui
 	mux.Handle("/", uiHandler)
 
 	// Server functionality
@@ -73,5 +72,5 @@ func main() {
 	fmt.Printf("Listening on: %v\n", addr)
 
 	err := http.ListenAndServe(addr, mux)
-	errs.CheckError(err)
+	errs.Must(err)
 }

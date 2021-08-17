@@ -21,7 +21,7 @@ func (h *HomePage) Render() UI {
 		Div().Body(
 			H3().Text("About").Class("w3-center"),
 			P().Text("go-app is a package to build progressive web apps (PWA) with Go programming language and WebAssembly."),
-			A().Text("Check Out Go-App").Href("https://github.com/maxence-charriere/go-app"),
+			A().Text("Check Out Go-app").Href("https://github.com/maxence-charriere/go-app"),
 			Ul().Body(
 				Li().Text("Language is Golang"),
 				Li().Text("Exported for WebAssembly (GOARCH = wasm | GOOS = js)"),

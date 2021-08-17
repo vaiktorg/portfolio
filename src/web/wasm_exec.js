@@ -257,38 +257,38 @@
 			const timeOrigin = Date.now() - performance.now();
 			this.importObject = {
 				go: {
-					// Go's SP does not change as long as no Go code is running. Some operations (e.g. calls, getters and setters)
-					// may synchronously trigger a Go event handler. This makes Go code get executed in the middle of the imported
-					// function. A goroutine can switch to a new stack if the current stack is too small (see morestack function).
-					// This changes the SP, thus we have to update the SP used by the imported function.
+                    // Go's SP does not change as long as no Go code is running. Some operations (e.g. calls, getters and setters)
+                    // may synchronously trigger a Go event handlers. This makes Go code get executed in the middle of the imported
+                    // function. A goroutine can switch to a new stack if the current stack is too small (see morestack function).
+                    // This changes the SP, thus we have to update the SP used by the imported function.
 
-					// func wasmExit(code int32)
-					"runtime.wasmExit": (sp) => {
-						const code = this.mem.getInt32(sp + 8, true);
-						this.exited = true;
-						delete this._inst;
-						delete this._values;
-						delete this._goRefCounts;
-						delete this._ids;
-						delete this._idPool;
-						this.exit(code);
-					},
+                    // func wasmExit(code int32)
+                    "runtime.wasmExit": (sp) => {
+                        const code = this.mem.getInt32(sp + 8, true);
+                        this.exited = true;
+                        delete this._inst;
+                        delete this._values;
+                        delete this._goRefCounts;
+                        delete this._ids;
+                        delete this._idPool;
+                        this.exit(code);
+                    },
 
-					// func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)
-					"runtime.wasmWrite": (sp) => {
-						const fd = getInt64(sp + 8);
-						const p = getInt64(sp + 16);
-						const n = this.mem.getInt32(sp + 24, true);
-						fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));
-					},
+                    // func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)
+                    "runtime.wasmWrite": (sp) => {
+                        const fd = getInt64(sp + 8);
+                        const p = getInt64(sp + 16);
+                        const n = this.mem.getInt32(sp + 24, true);
+                        fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));
+                    },
 
-					// func resetMemoryDataView()
-					"runtime.resetMemoryDataView": (sp) => {
-						this.mem = new DataView(this._inst.exports.mem.buffer);
-					},
+                    // func resetMemoryDataView()
+                    "runtime.resetMemoryDataView": (sp) => {
+                        this.mem = new DataView(this._inst.exports.mem.buffer);
+                    },
 
-					// func nanotime1() int64
-					"runtime.nanotime1": (sp) => {
+                    // func nanotime1() int64
+                    "runtime.nanotime1": (sp) => {
 						setInt64(sp + 8, (timeOrigin + performance.now()) * 1000000);
 					},
 
@@ -413,68 +413,68 @@
 							const result = Reflect.construct(v, args);
 							sp = this._inst.exports.getsp(); // see comment above
 							storeValue(sp + 40, result);
-							this.mem.setUint8(sp + 48, 1);
-						} catch (err) {
-							storeValue(sp + 40, err);
-							this.mem.setUint8(sp + 48, 0);
-						}
-					},
+                            this.mem.setUint8(sp + 48, 1);
+                        } catch (err) {
+                            storeValue(sp + 40, err);
+                            this.mem.setUint8(sp + 48, 0);
+                        }
+                    },
 
-					// func valueLength(v ref) int
-					"syscall/js.valueLength": (sp) => {
-						setInt64(sp + 16, parseInt(loadValue(sp + 8).length));
-					},
+                    // func valueLength(v ref) int
+                    "syscall/js.valueLength": (sp) => {
+                        setInt64(sp + 16, parseInt(loadValue(sp + 8).length));
+                    },
 
-					// valuePrepareString(v ref) (ref, int)
-					"syscall/js.valuePrepareString": (sp) => {
-						const str = encoder.encode(String(loadValue(sp + 8)));
-						storeValue(sp + 16, str);
-						setInt64(sp + 24, str.length);
-					},
+                    // valuePrepareString(v ref) (ref, int)
+                    "syscall/js.valuePrepareString": (sp) => {
+                        const str = encoder.encode(String(loadValue(sp + 8)));
+                        storeValue(sp + 16, str);
+                        setInt64(sp + 24, str.length);
+                    },
 
-					// valueLoadString(v ref, b []byte)
-					"syscall/js.valueLoadString": (sp) => {
-						const str = loadValue(sp + 8);
-						loadSlice(sp + 16).set(str);
-					},
+                    // valueLoadString(v ref, b []byte)
+                    "syscall/js.valueLoadString": (sp) => {
+                        const str = loadValue(sp + 8);
+                        loadSlice(sp + 16).set(str);
+                    },
 
-					// func valueInstanceOf(v ref, t ref) bool
-					"syscall/js.valueInstanceOf": (sp) => {
-						this.mem.setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16));
-					},
+                    // func valueInstanceOf(v ref, t ref) bool
+                    "syscall/js.valueInstanceOf": (sp) => {
+                        this.mem.setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16));
+                    },
 
-					// func copyBytesToGo(vaiktorg.github.io []byte, src ref) (int, bool)
-					"syscall/js.copyBytesToGo": (sp) => {
-						const dst = loadSlice(sp + 8);
-						const src = loadValue(sp + 32);
-						if (!(src instanceof Uint8Array)) {
-							this.mem.setUint8(sp + 48, 0);
-							return;
-						}
-						const toCopy = src.subarray(0, dst.length);
-						dst.set(toCopy);
-						setInt64(sp + 40, toCopy.length);
-						this.mem.setUint8(sp + 48, 1);
-					},
+                    // func copyBytesToGo(vaiktorg.github.io []byte, models ref) (int, bool)
+                    "syscall/js.copyBytesToGo": (sp) => {
+                        const dst = loadSlice(sp + 8);
+                        const src = loadValue(sp + 32);
+                        if (!(src instanceof Uint8Array)) {
+                            this.mem.setUint8(sp + 48, 0);
+                            return;
+                        }
+                        const toCopy = src.subarray(0, dst.length);
+                        dst.set(toCopy);
+                        setInt64(sp + 40, toCopy.length);
+                        this.mem.setUint8(sp + 48, 1);
+                    },
 
-					// func copyBytesToJS(vaiktorg.github.io ref, src []byte) (int, bool)
-					"syscall/js.copyBytesToJS": (sp) => {
-						const dst = loadValue(sp + 8);
-						const src = loadSlice(sp + 16);
-						if (!(dst instanceof Uint8Array)) {
-							this.mem.setUint8(sp + 48, 0);
-							return;
-						}
-						const toCopy = src.subarray(0, dst.length);
-						dst.set(toCopy);
-						setInt64(sp + 40, toCopy.length);
-						this.mem.setUint8(sp + 48, 1);
-					},
+                    // func copyBytesToJS(vaiktorg.github.io ref, models []byte) (int, bool)
+                    "syscall/js.copyBytesToJS": (sp) => {
+                        const dst = loadValue(sp + 8);
+                        const src = loadSlice(sp + 16);
+                        if (!(dst instanceof Uint8Array)) {
+                            this.mem.setUint8(sp + 48, 0);
+                            return;
+                        }
+                        const toCopy = src.subarray(0, dst.length);
+                        dst.set(toCopy);
+                        setInt64(sp + 40, toCopy.length);
+                        this.mem.setUint8(sp + 48, 1);
+                    },
 
-					"debug": (value) => {
-						console.log(value);
-					},
-				}
+                    "debug": (value) => {
+                        console.log(value);
+                    },
+                }
 			};
 		}
 
@@ -565,27 +565,27 @@
 		global.process.versions &&
 		!global.process.versions.electron
 	) {
-		if (process.argv.length < 3) {
-			console.error("usage: go_js_wasm_exec [wasm binary] [arguments]");
-			process.exit(1);
-		}
+        if (process.argv.length < 3) {
+            console.error("usage: go_js_wasm_exec [wasm binary] [arguments]");
+            process.exit(1);
+        }
 
-		const go = new Go();
-		go.argv = process.argv.slice(2);
-		go.env = Object.assign({ TMPDIR: require("os").tmpdir() }, process.env);
-		go.exit = process.exit;
-		WebAssembly.instantiate(fs.readFileSync(process.argv[2]), go.importObject).then((result) => {
-			process.on("exit", (code) => { // Node.js exits if no event handler is pending
-				if (code === 0 && !go.exited) {
-					// deadlock, make Go print error and stack traces
-					go._pendingEvent = { id: 0 };
-					go._resume();
-				}
-			});
-			return go.run(result.instance);
-		}).catch((err) => {
-			console.error(err);
-			process.exit(1);
-		});
-	}
+        const go = new Go();
+        go.argv = process.argv.slice(2);
+        go.env = Object.assign({TMPDIR: require("os").tmpdir()}, process.env);
+        go.exit = process.exit;
+        WebAssembly.instantiate(fs.readFileSync(process.argv[2]), go.importObject).then((result) => {
+            process.on("exit", (code) => { // Node.js exits if no event handlers is pending
+                if (code === 0 && !go.exited) {
+                    // deadlock, makefile Go print error and stack traces
+                    go._pendingEvent = {id: 0};
+                    go._resume();
+                }
+            });
+            return go.run(result.instance);
+        }).catch((err) => {
+            console.error(err);
+            process.exit(1);
+        });
+    }
 })();
